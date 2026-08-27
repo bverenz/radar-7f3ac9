@@ -100,20 +100,39 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
   .wrap{padding:14px 12px 60px;} h1{font-size:23px;}
   .job__top{flex-direction:column;gap:5px;}
 }
+
+/* Share code — the only route a decision made on Serand's phone has back to
+   the database. See radar/decisions.py. */
+#share{font:inherit;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;
+  text-transform:uppercase;padding:6px 11px;background:transparent;color:var(--fg-2);
+  border:1px solid var(--line);border-radius:2px;cursor:pointer;}
+#share:hover{border-color:var(--hot);color:var(--hot);}
+#sharebox{background:var(--panel);border:1px solid var(--line);
+  border-left:3px solid var(--cool);padding:13px 15px;margin:0 0 16px;}
+#sharebox p{margin:0 0 10px;font-size:12.5px;color:var(--fg-2);line-height:1.55;max-width:66ch;}
+#sharecode{width:100%;font-family:var(--mono);font-size:11px;padding:8px;
+  border:1px solid var(--line);border-radius:2px;background:var(--bg);
+  color:var(--fg);resize:vertical;}
+.sharerow{display:flex;gap:8px;align-items:center;margin-top:9px;flex-wrap:wrap;}
+.sharerow button{font:inherit;font-family:var(--mono);font-size:10.5px;padding:4px 10px;
+  background:transparent;color:var(--fg-2);border:1px solid var(--line);
+  border-radius:2px;cursor:pointer;}
+.sharerow button:hover{border-color:var(--fg-2);color:var(--fg);}
+.sharerow a{font-family:var(--mono);font-size:10.5px;color:var(--cool);}
 </style>
 <div class="wrap">
   <header>
     <h1>Job Radar</h1>
     <span class="health ok">OK</span>
-    <span class="stamp">built 2026-08-27 02:07 UTC · run 2026-08-27T02:00 · 475s</span>
+    <span class="stamp">built 2026-08-27 13:43 UTC · run 2026-08-27T02:00 · 0s</span>
   </header>
 
-  <div class="alarm"><b>Run reported 1 issue(s)</b><div>linkedin search failed for 'General Manager apparel': HTTP Error 500: Internal Server Error</div></div>
+  
 
   <div class="kpis">
     <div class="kpi hot"><b>0</b><span>new today</span></div>
     <div class="kpi"><b>9</b><span>at or above 75</span></div>
-    <div class="kpi"><b>619</b><span>fetched last run</span></div>
+    <div class="kpi"><b>0</b><span>fetched last run</span></div>
     <div class="kpi"><b>2562</b><span>scanned all time</span></div>
     <div class="kpi"><b>14</b><span>runs recorded</span></div>
   </div>
@@ -135,7 +154,19 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
     </div>
     <input type="search" id="q" placeholder="Search title, company, location, sector">
     <span class="spacer"></span>
+    <button id="share" title="Copy a short code with everything you have marked, so it can be added to the database">Send my list</button>
     <span class="stamp"><span id="count">0</span> shown</span>
+  </div>
+
+  <div id="sharebox" hidden>
+    <p>Marks live only in the browser they were made in, so this is how the ones
+    on your phone reach the database. Copy this and send it to Berkant.</p>
+    <textarea id="sharecode" readonly rows="3" onclick="this.select()"></textarea>
+    <div class="sharerow">
+      <button id="sharecopy">Copy</button>
+      <a id="sharetg" target="_blank" rel="noopener">Open in Telegram</a>
+      <button id="shareclose">Close</button>
+    </div>
   </div>
 
   <div id="list"></div>
@@ -148,7 +179,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--line);
     survives tomorrow's rebuild.
   </footer>
 </div>
-<script type="application/json" id="radar-data">{"jobs": [{"id": 2002, "url": "https://www.linkedin.com/jobs/view/4456891632/", "title": "Merchandising & Buying Executive", "company": "Satürn Spor | On", "location": "İstanbul, Türkiye", "industry": "Perakende Satış Giyim ve Moda ve Perakende Satış", "source": "linkedin", "posted_date": "2026-08-24", "score": 100, "band": "strong", "verdict": "qualified", "reason": "industry: Perakende Satış Giyim ve Moda ve Perakende Satış; 'merchandising' +6; 'buying' +5", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 1083, "url": "https://www.linkedin.com/jobs/view/4454399341/", "title": "Satın Alma Direktörü", "company": "Yataş Grup", "location": "İstanbul, Türkiye", "industry": "Perakende Satış", "source": "linkedin", "posted_date": "2026-08-14", "score": 100, "band": "strong", "verdict": "qualified", "reason": "industry: Perakende Satış; 'satın alma' +6; 'direktör' +8", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 953, "url": "https://www.linkedin.com/jobs/view/4450496831/", "title": "Sourcing Director", "company": "Beymen Group", "location": "İstanbul, Türkiye", "industry": "Perakende Satış Lüks Ürünler ve Mücevherler", "source": "linkedin", "posted_date": "2026-08-13", "score": 100, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; industry: Perakende Satış Lüks Ürünler ve Mücevherler; 'sourcing' +6", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 746, "url": "https://www.linkedin.com/jobs/view/4451677203/", "title": "Merchandise Director (Denim Apparel Supplier)", "company": "Tailor-Made Consultancy", "location": "İstanbul", "industry": "İşletme Danışmanlığı ve Hizmetleri", "source": "linkedin", "posted_date": "2026-08-11", "score": 95, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; 'director' +8; 'supplier' +4", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 1801, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-genel-mudur-yardimcisi-4171171", "title": "Genel Müdür Yardımcısı", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "17 gün", "score": 92, "band": "strong", "verdict": "qualified", "reason": "seniority: not stated; industry: Tarım / Ziraat · kaynak: tekstil; 'genel müdür' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 385, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-genel-muduru-4171814", "title": "Genel Müdür", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "3 gün", "score": 92, "band": "strong", "verdict": "qualified", "reason": "seniority: not stated; industry: Tarım / Ziraat · kaynak: tekstil; 'genel müdür' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 405, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-direktoru-4171846", "title": "Operasyon Direktörü", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "3 gün", "score": 92, "band": "strong", "verdict": "qualified", "reason": "seniority: not stated; industry: Tarım / Ziraat · kaynak: tekstil; 'direktör' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 1840, "url": "https://www.linkedin.com/jobs/view/4454673060/", "title": "Chief Executive Officer", "company": "New York Business Excellence", "location": "İstanbul", "industry": "İnternet Haberleri", "source": "linkedin", "posted_date": "2026-08-21", "score": 86, "band": "strong", "verdict": "qualified", "reason": "seniority: Üst Düzey Yönetici; 'head of' +8; 'chief' +6", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 600, "url": "https://www.linkedin.com/jobs/view/4449563558/", "title": "Head Of Brand Partnership", "company": "Piu Talents", "location": "İstanbul", "industry": "Pazarlama Hizmetleri", "source": "linkedin", "posted_date": "2026-08-10", "score": 80, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; 'head of' +8", "tier": 1, "work_model": "unknown", "is_new": false}], "seed": {}, "stats": {"raw": 619, "new": 152, "qualified": 9, "today": 0, "total": 9, "floor": 75, "seen_all_time": 2562}, "run": {"at": "2026-08-27T02:00:03+00:00", "status": "ok", "duration": 475.3351900577545}, "errors": ["linkedin search failed for 'General Manager apparel': HTTP Error 500: Internal Server Error"]}</script>
+<script type="application/json" id="radar-data">{"jobs": [{"id": 2002, "url": "https://www.linkedin.com/jobs/view/4456891632/", "title": "Merchandising & Buying Executive", "company": "Satürn Spor | On", "location": "İstanbul, Türkiye", "industry": "Perakende Satış Giyim ve Moda ve Perakende Satış", "source": "linkedin", "posted_date": "2026-08-24", "score": 100, "band": "strong", "verdict": "qualified", "reason": "industry: Perakende Satış Giyim ve Moda ve Perakende Satış; 'merchandising' +6; 'buying' +5", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 1801, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-genel-mudur-yardimcisi-4171171", "title": "Perakende Operasyonları Genel Müdür Yardımcısı", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "17 gün", "score": 100, "band": "strong", "verdict": "qualified", "reason": "seniority: Üst düzey yönetici; industry: Tarım / Ziraat · kaynak: tekstil; 'genel müdür' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 1083, "url": "https://www.linkedin.com/jobs/view/4454399341/", "title": "Satın Alma Direktörü", "company": "Yataş Grup", "location": "İstanbul, Türkiye", "industry": "Perakende Satış", "source": "linkedin", "posted_date": "2026-08-14", "score": 100, "band": "strong", "verdict": "qualified", "reason": "industry: Perakende Satış; 'satın alma' +6; 'direktör' +8", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 953, "url": "https://www.linkedin.com/jobs/view/4450496831/", "title": "Sourcing Director", "company": "Beymen Group", "location": "İstanbul, Türkiye", "industry": "Perakende Satış Lüks Ürünler ve Mücevherler", "source": "linkedin", "posted_date": "2026-08-13", "score": 100, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; industry: Perakende Satış Lüks Ürünler ve Mücevherler; 'sourcing' +6", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 385, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-genel-muduru-4171814", "title": "Perakende Operasyonları Genel Müdürü", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "3 gün", "score": 100, "band": "strong", "verdict": "qualified", "reason": "seniority: Üst düzey yönetici; industry: Tarım / Ziraat · kaynak: tekstil; 'genel müdür' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 405, "url": "https://www.kariyer.net/is-ilani/ozdilek-holding-perakende-operasyonlari-direktoru-4171846", "title": "Operasyon Direktörü", "company": "Özdilek Holding", "location": "Bursa, Türkiye", "industry": "Tarım / Ziraat · kaynak: tekstil", "source": "kariyer", "posted_date": "3 gün", "score": 100, "band": "strong", "verdict": "qualified", "reason": "seniority: Üst düzey yönetici; industry: Tarım / Ziraat · kaynak: tekstil; 'direktör' +8", "tier": 1, "work_model": "onsite", "is_new": false}, {"id": 746, "url": "https://www.linkedin.com/jobs/view/4451677203/", "title": "Merchandise Director (Denim Apparel Supplier)", "company": "Tailor-Made Consultancy", "location": "İstanbul", "industry": "İşletme Danışmanlığı ve Hizmetleri", "source": "linkedin", "posted_date": "2026-08-11", "score": 95, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; 'director' +8; 'supplier' +4", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 1840, "url": "https://www.linkedin.com/jobs/view/4454673060/", "title": "Chief Executive Officer", "company": "New York Business Excellence", "location": "İstanbul", "industry": "İnternet Haberleri", "source": "linkedin", "posted_date": "2026-08-21", "score": 86, "band": "strong", "verdict": "qualified", "reason": "seniority: Üst Düzey Yönetici; 'head of' +8; 'chief' +6", "tier": 1, "work_model": "unknown", "is_new": false}, {"id": 600, "url": "https://www.linkedin.com/jobs/view/4449563558/", "title": "Head Of Brand Partnership", "company": "Piu Talents", "location": "İstanbul", "industry": "Pazarlama Hizmetleri", "source": "linkedin", "posted_date": "2026-08-10", "score": 80, "band": "strong", "verdict": "qualified", "reason": "seniority: Direktör; 'head of' +8", "tier": 1, "work_model": "unknown", "is_new": false}], "seed": {}, "stats": {"raw": 0, "new": 0, "qualified": 9, "today": 0, "total": 9, "floor": 75, "seen_all_time": 2562}, "run": {"at": "2026-08-27T02:00:03+00:00", "status": "ok", "duration": 0}, "errors": []}</script>
 <script>
 const DATA = JSON.parse(document.getElementById('radar-data').textContent);
 const KEY  = 'RADAR_DECISIONS';
@@ -215,6 +246,104 @@ function visible(){
   }).sort((a,b) => b.score - a.score);
 }
 
+
+/* ---- SHARE CODE -------------------------------------------------------
+   Decisions live in localStorage, which is per-device: a tap on Serand's
+   phone can never reach Berkant's database on its own. There is no backend
+   and there must not be a secret in a public page, so the transport is the
+   one that always works -- he copies a short string and sends it.
+
+   Format: "RADAR1:" + urlsafe-base64( deflate( JSON ) ), which is what
+   radar/decisions.py decode() expects. Compressed because a phone keyboard
+   and a chat app both dislike long unbroken strings, and deflate takes a
+   typical list well under a text message.                                */
+function shareCode(){
+  const d = load();
+  const keep = {};
+  Object.keys(d).forEach(k => {
+    const r = d[k];
+    if (r && r.state && r.state !== 'new') keep[k] = r;
+  });
+  if (!Object.keys(keep).length) return '';
+  const json = JSON.stringify(keep);
+  let bytes;
+  try {
+    bytes = pako_deflate(new TextEncoder().encode(json));
+  } catch (e) {
+    bytes = null;
+  }
+  if (!bytes) return '';
+  let bin = '';
+  bytes.forEach(b => { bin += String.fromCharCode(b); });
+  const b64 = btoa(bin).replace(/\+/g, '-').replace(/\//g, '_');
+  return 'RADAR1:' + b64;
+}
+
+/* Minimal raw-deflate with a zlib wrapper, so no library is needed and the
+   page stays self-contained. Stored (uncompressed) deflate blocks are valid
+   deflate, and Python's zlib.decompress reads them happily -- the code is a
+   little longer than a real compressor would give, which costs nothing at
+   this size and removes a dependency entirely. */
+function pako_deflate(u8){
+  const out = [];
+  out.push(0x78, 0x01);                       // zlib header, no compression
+  let i = 0;
+  while (i < u8.length || u8.length === 0){
+    const chunk = u8.subarray(i, i + 65535);
+    const last  = (i + chunk.length >= u8.length) ? 1 : 0;
+    out.push(last);                            // BFINAL, BTYPE=00 (stored)
+    out.push(chunk.length & 0xff, (chunk.length >> 8) & 0xff);
+    const n = (~chunk.length) & 0xffff;
+    out.push(n & 0xff, (n >> 8) & 0xff);
+    chunk.forEach(b => out.push(b));
+    i += chunk.length;
+    if (last) break;
+  }
+  let a = 1, b = 0;                            // adler32
+  for (let k = 0; k < u8.length; k++){
+    a = (a + u8[k]) % 65521;
+    b = (b + a) % 65521;
+  }
+  out.push((b >> 8) & 0xff, b & 0xff, (a >> 8) & 0xff, a & 0xff);
+  return Uint8Array.from(out);
+}
+
+function wireShare(){
+  const btn = document.getElementById('share');
+  const box = document.getElementById('sharebox');
+  const ta  = document.getElementById('sharecode');
+  if (!btn || !box || !ta) return;
+
+  btn.addEventListener('click', () => {
+    const code = shareCode();
+    if (!code){
+      ta.value = '';
+      box.hidden = false;
+      ta.value = 'Nothing marked yet. Tap Interested or Applied on a job first.';
+      return;
+    }
+    ta.value = code;
+    box.hidden = false;
+    ta.select();
+    const tg = document.getElementById('sharetg');
+    if (tg) tg.href = 'https://t.me/share/url?url=' + encodeURIComponent(code);
+  });
+
+  const copy = document.getElementById('sharecopy');
+  if (copy) copy.addEventListener('click', () => {
+    ta.select();
+    try {
+      if (navigator.clipboard) navigator.clipboard.writeText(ta.value);
+      else document.execCommand('copy');
+      copy.textContent = 'Copied';
+      setTimeout(() => { copy.textContent = 'Copy'; }, 1500);
+    } catch (e) {}
+  });
+
+  const close = document.getElementById('shareclose');
+  if (close) close.addEventListener('click', () => { box.hidden = true; });
+}
+
 function card(j){
   const st = stateOf(j.id);
   const el = document.createElement('div');
@@ -278,5 +407,6 @@ document.getElementById('q').addEventListener('input', e => { q = e.target.value
    rather than poking at localStorage internals, so the contract is explicit. */
 window.__radarExport = () => JSON.stringify(load());
 
+wireShare();
 render();
 </script>
